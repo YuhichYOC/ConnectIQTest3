@@ -3,12 +3,15 @@ using Toybox.Graphics;
 using Toybox.System;
 using Toybox.Lang;
 
+var partialUpdatesAllowed = false;
+
 class ConnectIQTest3View extends WatchUi.WatchFace {
 
     private var oup;
 
     function initialize() {
         WatchFace.initialize();
+        partialUpdatesAllowed = (Toybox.WatchUi.WatchFace has :onPartialUpdate);
     }
 
     function onLayout(dc) {
@@ -20,10 +23,12 @@ class ConnectIQTest3View extends WatchUi.WatchFace {
     }
 
     function onUpdate(dc) {
+        oup.AllowPartial(partialUpdatesAllowed);
         oup.run(dc);
     }
 
     function onPartialUpdate(dc) {
+        oup.AllowPartial(partialUpdatesAllowed);
         oup.runPartial(dc);
     }
 
@@ -31,9 +36,21 @@ class ConnectIQTest3View extends WatchUi.WatchFace {
     }
 
     function onExitSleep() {
+        oup.Awaken(true);
     }
 
     function onEnterSleep() {
+        oup.Awaken(false);
+    }
+
+}
+
+class ConnectIQTest3Delegate extends WatchUi.WatchFaceDelegate {
+
+    function onPowerBudgetExceeded(powerInfo) {
+        System.println("Average execution time: " + powerInfo.executionTimeAverage);
+        System.println("Allowed execution time: " + powerInfo.executionTimeLimit);
+        partialUpdatesAllowed = false;
     }
 
 }
