@@ -1,7 +1,7 @@
-using Toybox.WatchUi;
 using Toybox.Graphics;
-using Toybox.System;
 using Toybox.Lang;
+using Toybox.System;
+using Toybox.WatchUi;
 
 var partialUpdatesAllowed = false;
 

@@ -1,6 +1,9 @@
 class DialPrinter {
 
+    private var penWidth;
+
     public function printDial(l) {
+        penWidth = 2;
         fill(l);
         printHashMarksForRound(l);
     }
@@ -16,12 +19,13 @@ class DialPrinter {
     private function printHashMarksForRound(l) {
         if (l.success()) {
             var c = l.context();
-            c.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_TRANSPARENT);
 
             var outerRad = l.size()[0] / 2;
             var innerRad1 = outerRad - 10;
             var innerRad2 = outerRad - 20;
             var offset = 2;
+            c.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_TRANSPARENT);
+            c.setPenWidth(penWidth);
             for (var i = 0; i < 12; ++i) {
                 var sX = outerRad + innerRad1 * Math.cos((Math.PI / 6) * i);
                 var sXL = outerRad + innerRad2 * Math.cos((Math.PI / 6) * i);

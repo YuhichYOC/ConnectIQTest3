@@ -6,9 +6,11 @@ class OnUpdatePrinter {
 
     private var l;
 
-    private var dp;
+    private var dip;
 
     private var hmp;
+
+    private var dap;
 
     private var sp;
 
@@ -23,8 +25,9 @@ class OnUpdatePrinter {
     public function init(argDc) {
         l = new BBLayer();
         l.tryAlloc(argDc);
-        dp = new DialPrinter();
+        dip = new DialPrinter();
         hmp = new HMHandsPrinter();
+        dap = new DatePrinter();
         sp = new SHandPrinter();
         if (l.success()) {
             sp.initSp(l.size(), l.center());
@@ -32,14 +35,13 @@ class OnUpdatePrinter {
     }
 
     public function run(dc) {
-        System.println("OnUpdatePrinter::run");
         if (l.success()) {
             dc.clearClip();
             var clockTime = System.getClockTime();
-            System.println(Lang.format("OnUpdatePrinter::run $1$:$2$:$3$", [ clockTime.hour, clockTime.min, clockTime.sec ]));
-            dp.printDial(l);
+            dip.printDial(l);
             hmp.init(clockTime);
             hmp.printHMHands(l);
+            dap.printDate(l);
             dc.drawBitmap(0, 0, l.buffer());
             if (partialAllowed) {
                 sp.printSHandWithClip(dc, clockTime);
@@ -50,10 +52,8 @@ class OnUpdatePrinter {
     }
 
     public function runPartial(dc) {
-        System.println("OnUpdatePrinter::runPartial");
         if (l.success() && partialAllowed) {
             var clockTime = System.getClockTime();
-            System.println(Lang.format("OnUpdatePrinter::runPartial $1$:$2$:$3$", [ clockTime.hour, clockTime.min, clockTime.sec ]));
             dc.drawBitmap(0, 0, l.buffer());
             sp.printSHandWithClip(dc, clockTime);
         }
