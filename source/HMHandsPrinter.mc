@@ -18,7 +18,7 @@ class HMHandsPrinter {
         if (l.success()) {
             var c = l.context();
             var angle = (((clockTime.hour % 12) * 60 + clockTime.min) / (12 * 30.0)) * Math.PI;
-            var pts = generateHMHandCoordinates(l.center(), angle, (l.size()[0] / 2) - 44, 10, 8);
+            var pts = generateHMHandCoordinates(l.center(), angle, (l.size()[0] / 2) - 44, 16, 8);
             c.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_TRANSPARENT);
             c.setPenWidth(penWidth);
             c.drawLine(pts[0][0], pts[0][1], pts[1][0], pts[1][1]);
@@ -32,7 +32,7 @@ class HMHandsPrinter {
         if (l.success()) {
             var c = l.context();
             var angle = (clockTime.min / 30.0) * Math.PI;
-            var pts = generateHMHandCoordinates(l.center(), angle, (l.size()[0] / 2) - 24, 20, 6);
+            var pts = generateHMHandCoordinates(l.center(), angle, (l.size()[0] / 2) - 24, 22, 6);
             c.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_TRANSPARENT);
             c.setPenWidth(penWidth);
             c.drawLine(pts[0][0], pts[0][1], pts[1][0], pts[1][1]);

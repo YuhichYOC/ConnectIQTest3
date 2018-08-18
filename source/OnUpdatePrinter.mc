@@ -26,6 +26,7 @@ class OnUpdatePrinter {
         l = new BBLayer();
         l.tryAlloc(argDc);
         dip = new DialPrinter();
+        dip.initDip();
         hmp = new HMHandsPrinter();
         dap = new DatePrinter();
         sp = new SHandPrinter();

@@ -2,10 +2,21 @@ class DialPrinter {
 
     private var penWidth;
 
+    private var dndIcon;
+
+    private var btIcon;
+
+    public function initDip() {
+        dndIcon = WatchUi.loadResource(Rez.Drawables.DoNotDisturbW);
+        btIcon = WatchUi.loadResource(Rez.Drawables.BluetoothMarkW);
+    }
+
     public function printDial(l) {
         penWidth = 2;
         fill(l);
         printHashMarksForRound(l);
+        printArbor(l);
+        printDndIcon(l);
     }
 
     private function fill(l) {
@@ -42,6 +53,25 @@ class DialPrinter {
                 } else {
                     c.drawLine(sX, sY, eX, eY);
                 }
+            }
+        }
+    }
+
+    private function printArbor(l) {
+        if (l.success()) {
+            var c = l.context();
+            var r = 8;
+            c.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_TRANSPARENT);
+            c.setPenWidth(penWidth);
+            c.drawCircle(l.center()[0], l.center()[1], r);
+        }
+    }
+
+    private function printDndIcon(l) {
+        if (l.success()) {
+            if (System.getDeviceSettings().doNotDisturb) {
+                var c = l.context();
+                c.drawBitmap(l.size()[0] / 2, (l.size()[1] * 2) / 7, dndIcon);
             }
         }
     }
