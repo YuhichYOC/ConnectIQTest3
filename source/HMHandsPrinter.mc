@@ -19,7 +19,11 @@ class HMHandsPrinter {
             var c = l.context();
             var angle = (((clockTime.hour % 12) * 60 + clockTime.min) / (12 * 30.0)) * Math.PI;
             var pts = generateHMHandCoordinates(l.center(), angle, (l.size()[0] / 2) - 44, 16, 8);
-            c.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_TRANSPARENT);
+            if (0x000000 == Application.getApp().getProperty("BackgroundColor")) {
+                c.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_TRANSPARENT);
+            } else {
+                c.setColor(Graphics.COLOR_BLACK, Graphics.COLOR_TRANSPARENT);
+            }
             c.setPenWidth(penWidth);
             c.drawLine(pts[0][0], pts[0][1], pts[1][0], pts[1][1]);
             c.drawLine(pts[1][0], pts[1][1], pts[2][0], pts[2][1]);
@@ -33,7 +37,11 @@ class HMHandsPrinter {
             var c = l.context();
             var angle = (clockTime.min / 30.0) * Math.PI;
             var pts = generateHMHandCoordinates(l.center(), angle, (l.size()[0] / 2) - 24, 22, 6);
-            c.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_TRANSPARENT);
+            if (0x000000 == Application.getApp().getProperty("BackgroundColor")) {
+                c.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_TRANSPARENT);
+            } else {
+                c.setColor(Graphics.COLOR_BLACK, Graphics.COLOR_TRANSPARENT);
+            }
             c.setPenWidth(penWidth);
             c.drawLine(pts[0][0], pts[0][1], pts[1][0], pts[1][1]);
             c.drawLine(pts[1][0], pts[1][1], pts[2][0], pts[2][1]);

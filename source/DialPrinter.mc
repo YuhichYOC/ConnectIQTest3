@@ -2,27 +2,21 @@ class DialPrinter {
 
     private var penWidth;
 
-    private var dndIcon;
-
-    private var btIcon;
-
-    public function initDip() {
-        dndIcon = WatchUi.loadResource(Rez.Drawables.DoNotDisturbW);
-        btIcon = WatchUi.loadResource(Rez.Drawables.BluetoothMarkW);
-    }
-
     public function printDial(l) {
         penWidth = 2;
         fill(l);
         printHashMarksForRound(l);
         printArbor(l);
-        printDndIcon(l);
     }
 
     private function fill(l) {
         if (l.success()) {
             var c = l.context();
-            c.setColor(Graphics.COLOR_BLACK, Graphics.COLOR_WHITE);
+            if (0x000000 == Application.getApp().getProperty("BackgroundColor")) {
+                c.setColor(Graphics.COLOR_BLACK, Graphics.COLOR_WHITE);
+            } else {
+                c.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_BLACK);
+            }
             c.fillRectangle(0, 0, l.size()[0], l.size()[1]);
         }
     }
@@ -35,7 +29,11 @@ class DialPrinter {
             var innerRad1 = outerRad - 10;
             var innerRad2 = outerRad - 20;
             var offset = 2;
-            c.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_TRANSPARENT);
+            if (0x000000 == Application.getApp().getProperty("BackgroundColor")) {
+                c.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_TRANSPARENT);
+            } else {
+                c.setColor(Graphics.COLOR_BLACK, Graphics.COLOR_TRANSPARENT);
+            }
             c.setPenWidth(penWidth);
             for (var i = 0; i < 12; ++i) {
                 var sX = outerRad + innerRad1 * Math.cos((Math.PI / 6) * i);
@@ -61,18 +59,13 @@ class DialPrinter {
         if (l.success()) {
             var c = l.context();
             var r = 8;
-            c.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_TRANSPARENT);
+            if (0x000000 == Application.getApp().getProperty("BackgroundColor")) {
+                c.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_TRANSPARENT);
+            } else {
+                c.setColor(Graphics.COLOR_BLACK, Graphics.COLOR_TRANSPARENT);
+            }
             c.setPenWidth(penWidth);
             c.drawCircle(l.center()[0], l.center()[1], r);
-        }
-    }
-
-    private function printDndIcon(l) {
-        if (l.success()) {
-            if (System.getDeviceSettings().doNotDisturb) {
-                var c = l.context();
-                c.drawBitmap(l.size()[0] / 2, (l.size()[1] * 2) / 7, dndIcon);
-            }
         }
     }
 

@@ -1,0 +1,6 @@
+<properties>
+
+    <property id="BackgroundColor" type="number">0x000000</property>
+    <property id="SecondHandColor" type="number">0x00AAFF</property>
+
+</properties>

@@ -1,7 +1,21 @@
 <drawables>
     <bitmap id="LauncherIcon" filename="launcher_icon.png" />
-    <bitmap id="DoNotDisturbB" filename="DoNotDisturb_B.png" />
-    <bitmap id="DoNotDisturbW" filename="DoNotDisturb_W.png" />
-    <bitmap id="BluetoothMarkB" filename="BluetoothMark_B.png" />
-    <bitmap id="BluetoothMarkW" filename="BluetoothMark_W.png" />
+    <bitmap id="BattIcon10B" filename="BattIcon10B.png" />
+    <bitmap id="BattIcon10W" filename="BattIcon10W.png" />
+    <bitmap id="BattIcon20B" filename="BattIcon20B.png" />
+    <bitmap id="BattIcon20W" filename="BattIcon20W.png" />
+    <bitmap id="BattIcon50B" filename="BattIcon50B.png" />
+    <bitmap id="BattIcon50W" filename="BattIcon50W.png" />
+    <bitmap id="BluetoothIconB" filename="BluetoothIconB.png" />
+    <bitmap id="BluetoothIconW" filename="BluetoothIconW.png" />
+    <bitmap id="DoNotDisturbIconB" filename="DoNotDisturbIconB.png" />
+    <bitmap id="DoNotDisturbIconW" filename="DoNotDisturbIconW.png" />
+    <bitmap id="NightModeIconB" filename="NightModeIconB.png" />
+    <bitmap id="NightModeIconW" filename="NightModeIconW.png" />
+    <bitmap id="Notify1IconB" filename="Notify1IconB.png" />
+    <bitmap id="Notify1IconW" filename="Notify1IconW.png" />
+    <bitmap id="Notify2IconB" filename="Notify2IconB.png" />
+    <bitmap id="Notify2IconW" filename="Notify2IconW.png" />
+    <bitmap id="Notify3PlusIconB" filename="Notify3PlusIconB.png" />
+    <bitmap id="Notify3PlusIconW" filename="Notify3PlusIconW.png" />
 </drawables>

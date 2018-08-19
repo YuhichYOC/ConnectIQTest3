@@ -19,7 +19,7 @@ class SHandPrinter {
     }
 
     public function printSHand(dc, clockTime) {
-        dc.setColor(Graphics.COLOR_BLUE, Graphics.COLOR_TRANSPARENT);
+        dc.setColor(Application.getApp().getProperty("SecondHandColor"), Graphics.COLOR_TRANSPARENT);
 
         var s = clockTime.sec;
         var position = [
@@ -39,7 +39,7 @@ class SHandPrinter {
     }
 
     public function printSHandWithClip(dc, clockTime) {
-        dc.setColor(Graphics.COLOR_BLUE, Graphics.COLOR_TRANSPARENT);
+        dc.setColor(Application.getApp().getProperty("SecondHandColor"), Graphics.COLOR_TRANSPARENT);
 
         var s = clockTime.sec;
         var position = [

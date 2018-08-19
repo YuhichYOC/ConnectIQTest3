@@ -8,6 +8,8 @@ class OnUpdatePrinter {
 
     private var dip;
 
+    private var ip;
+
     private var hmp;
 
     private var dap;
@@ -26,7 +28,7 @@ class OnUpdatePrinter {
         l = new BBLayer();
         l.tryAlloc(argDc);
         dip = new DialPrinter();
-        dip.initDip();
+        ip = new IconPrinter();
         hmp = new HMHandsPrinter();
         dap = new DatePrinter();
         sp = new SHandPrinter();
@@ -40,7 +42,9 @@ class OnUpdatePrinter {
             dc.clearClip();
             var clockTime = System.getClockTime();
             dip.printDial(l);
-            hmp.init(clockTime);
+            ip.initIp();
+            ip.printIcons(l);
+            hmp.initHmp(clockTime);
             hmp.printHMHands(l);
             dap.printDate(l);
             dc.drawBitmap(0, 0, l.buffer());
