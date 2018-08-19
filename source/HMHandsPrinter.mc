@@ -4,7 +4,7 @@ class HMHandsPrinter {
 
     private var penWidth;
 
-    public function init(arg) {
+    public function initHmp(arg) {
         clockTime = arg;
         penWidth = 2;
     }
