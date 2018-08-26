@@ -4,26 +4,39 @@ class HMHandsPrinter {
 
     private var penWidth;
 
-    public function initHmp(arg) {
+    private var fColor;
+
+    private var bColor;
+
+    public function init(arg) {
         clockTime = arg;
         penWidth = 2;
     }
 
-    public function printHMHands(l) {
+    public function print(l) {
+        setColorsToPrint();
         printHourHand(l);
         printMinuteHand(l);
+    }
+
+    private function setColorsToPrint() {
+        if (0x000000 == Application.getApp().getProperty("BackgroundColor")) {
+            fColor = Graphics.COLOR_WHITE;
+            bColor = Graphics.COLOR_TRANSPARENT;
+        } else {
+            fColor = Graphics.COLOR_BLACK;
+            bColor = Graphics.COLOR_TRANSPARENT;
+        }
     }
 
     private function printHourHand(l) {
         if (l.success()) {
             var c = l.context();
             var angle = (((clockTime.hour % 12) * 60 + clockTime.min) / (12 * 30.0)) * Math.PI;
+            var cos = Math.cos(angle);
+            var sin = Math.sin(angle);
             var pts = generateHMHandCoordinates(l.center(), angle, (l.size()[0] / 2) - 44, 16, 8);
-            if (0x000000 == Application.getApp().getProperty("BackgroundColor")) {
-                c.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_TRANSPARENT);
-            } else {
-                c.setColor(Graphics.COLOR_BLACK, Graphics.COLOR_TRANSPARENT);
-            }
+            c.setColor(fColor, bColor);
             c.setPenWidth(penWidth);
             c.drawLine(pts[0][0], pts[0][1], pts[1][0], pts[1][1]);
             c.drawLine(pts[1][0], pts[1][1], pts[2][0], pts[2][1]);
@@ -37,11 +50,7 @@ class HMHandsPrinter {
             var c = l.context();
             var angle = (clockTime.min / 30.0) * Math.PI;
             var pts = generateHMHandCoordinates(l.center(), angle, (l.size()[0] / 2) - 24, 22, 6);
-            if (0x000000 == Application.getApp().getProperty("BackgroundColor")) {
-                c.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_TRANSPARENT);
-            } else {
-                c.setColor(Graphics.COLOR_BLACK, Graphics.COLOR_TRANSPARENT);
-            }
+            c.setColor(fColor, bColor);
             c.setPenWidth(penWidth);
             c.drawLine(pts[0][0], pts[0][1], pts[1][0], pts[1][1]);
             c.drawLine(pts[1][0], pts[1][1], pts[2][0], pts[2][1]);

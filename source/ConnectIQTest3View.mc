@@ -1,5 +1,3 @@
-using Toybox.Graphics;
-using Toybox.Lang;
 using Toybox.System;
 using Toybox.WatchUi;
 
@@ -46,6 +44,10 @@ class ConnectIQTest3View extends WatchUi.WatchFace {
 }
 
 class ConnectIQTest3Delegate extends WatchUi.WatchFaceDelegate {
+
+    function initialize() {
+        WatchFaceDelegate.initialize();
+    }
 
     function onPowerBudgetExceeded(powerInfo) {
         System.println("Average execution time: " + powerInfo.executionTimeAverage);

@@ -1,10 +1,10 @@
+using Toybox.Graphics;
+
 class BBLayer {
 
     private var bb;
 
     private var s;
-
-    private var cont;
 
     private var w;
 
@@ -14,17 +14,43 @@ class BBLayer {
 
     public function tryAlloc(dc) {
         s = false;
-        System.println("BBLayer::tryAlloc");
         if (Toybox.Graphics has :BufferedBitmap) {
             bb = new Graphics.BufferedBitmap( {
                 :width => dc.getWidth(),
                 :height => dc.getHeight()
             } );
             s = true;
-            System.println("BBLayer::tryAlloc success");
-            cont = bb.getDc();
-            w = cont.getWidth();
-            h = cont.getHeight();
+            w = bb.getDc().getWidth();
+            h = bb.getDc().getHeight();
+            cent = [ w / 2, h / 2 ];
+        }
+    }
+
+    public function tryAllocWithPalette(arg1dc, arg2palette) {
+        s = false;
+        if (Toybox.Graphics has :BufferedBitmap) {
+            bb = new Graphics.BufferedBitmap( {
+                :width => arg1dc.getWidth(),
+                :height => arg1dc.getHeight(),
+                :palette => arg2palette
+            } );
+            s = true;
+            w = bb.getDc().getWidth();
+            h = bb.getDc().getHeight();
+            cent = [ w / 2, h / 2 ];
+        }
+    }
+
+    public function tryAllocWithSize(arg1dc, arg2size) {
+        s = false;
+        if (Toybox.Graphics has :BufferedBitmap) {
+            bb = new Graphics.BufferedBitmap( {
+                :width => arg2size[0],
+                :height => arg2size[1]
+            } );
+            s = true;
+            w = bb.getDc().getWidth();
+            h = bb.getDc().getHeight();
             cent = [ w / 2, h / 2 ];
         }
     }
@@ -38,7 +64,7 @@ class BBLayer {
     }
 
     public function context() {
-        return cont;
+        return bb.getDc();
     }
 
     public function size() {

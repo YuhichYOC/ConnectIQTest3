@@ -1,21 +1,23 @@
 <drawables>
     <bitmap id="LauncherIcon" filename="launcher_icon.png" />
-    <bitmap id="BattIcon10B" filename="BattIcon10B.png" />
-    <bitmap id="BattIcon10W" filename="BattIcon10W.png" />
-    <bitmap id="BattIcon20B" filename="BattIcon20B.png" />
-    <bitmap id="BattIcon20W" filename="BattIcon20W.png" />
-    <bitmap id="BattIcon50B" filename="BattIcon50B.png" />
-    <bitmap id="BattIcon50W" filename="BattIcon50W.png" />
-    <bitmap id="BluetoothIconB" filename="BluetoothIconB.png" />
-    <bitmap id="BluetoothIconW" filename="BluetoothIconW.png" />
-    <bitmap id="DoNotDisturbIconB" filename="DoNotDisturbIconB.png" />
-    <bitmap id="DoNotDisturbIconW" filename="DoNotDisturbIconW.png" />
-    <bitmap id="NightModeIconB" filename="NightModeIconB.png" />
-    <bitmap id="NightModeIconW" filename="NightModeIconW.png" />
-    <bitmap id="Notify1IconB" filename="Notify1IconB.png" />
-    <bitmap id="Notify1IconW" filename="Notify1IconW.png" />
-    <bitmap id="Notify2IconB" filename="Notify2IconB.png" />
-    <bitmap id="Notify2IconW" filename="Notify2IconW.png" />
-    <bitmap id="Notify3PlusIconB" filename="Notify3PlusIconB.png" />
-    <bitmap id="Notify3PlusIconW" filename="Notify3PlusIconW.png" />
+    <bitmap id="B10B" filename="Batt/B38x28/10.png" />
+    <bitmap id="B10W" filename="Batt/W38x28/10.png" />
+    <bitmap id="B20B" filename="Batt/B38x28/20.png" />
+    <bitmap id="B20W" filename="Batt/W38x28/20.png" />
+    <bitmap id="B30B" filename="Batt/B38x28/30.png" />
+    <bitmap id="B30W" filename="Batt/W38x28/30.png" />
+    <bitmap id="B40B" filename="Batt/B38x28/40.png" />
+    <bitmap id="B40W" filename="Batt/W38x28/40.png" />
+    <bitmap id="B50B" filename="Batt/B38x28/50.png" />
+    <bitmap id="B50W" filename="Batt/W38x28/50.png" />
+    <bitmap id="BtB" filename="Bluetooth/B14x28/BluetoothIcon.png" />
+    <bitmap id="BtW" filename="Bluetooth/W14x28/BluetoothIcon.png" />
+    <bitmap id="DNDB" filename="Dnd/B24x28/DoNotDisturbIcon.png" />
+    <bitmap id="DNDW" filename="Dnd/W24x28/DoNotDisturbIcon.png" />
+    <bitmap id="N1B" filename="Notify/B26x28/1.png" />
+    <bitmap id="N1W" filename="Notify/W26x28/1.png" />
+    <bitmap id="N2B" filename="Notify/B26x28/2.png" />
+    <bitmap id="N2W" filename="Notify/W26x28/2.png" />
+    <bitmap id="N3B" filename="Notify/B26x28/3.png" />
+    <bitmap id="N3W" filename="Notify/W26x28/3.png" />
 </drawables>

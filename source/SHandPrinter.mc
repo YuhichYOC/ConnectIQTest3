@@ -10,7 +10,7 @@ class SHandPrinter {
 
     private var penWidth;
 
-    public function initSp(arg1size, arg2center) {
+    public function init(arg1size, arg2center) {
         w = arg1size[0];
         h = arg1size[1];
         c = arg2center;
@@ -18,7 +18,7 @@ class SHandPrinter {
         penWidth = 3;
     }
 
-    public function printSHand(dc, clockTime) {
+    public function print(dc, clockTime) {
         dc.setColor(Application.getApp().getProperty("SecondHandColor"), Graphics.COLOR_TRANSPARENT);
 
         var s = clockTime.sec;
@@ -38,7 +38,7 @@ class SHandPrinter {
         }
     }
 
-    public function printSHandWithClip(dc, clockTime) {
+    public function printWithClip(dc, clockTime) {
         dc.setColor(Application.getApp().getProperty("SecondHandColor"), Graphics.COLOR_TRANSPARENT);
 
         var s = clockTime.sec;

@@ -1,194 +1,306 @@
+using Toybox.System;
+
 class IconPrinter {
 
-    private var battIcon10;
+    private var containerWidth;
 
-    private var battIcon20;
+    private var bPosition;
 
-    private var battIcon50;
+    private var btPosition;
 
-    private var bluetoothIcon;
+    private var dndPosition;
 
-    private var doNotDisturbIcon;
+    private var nPosition;
 
-    private var nightModeIcon;
-
-    private var notify1Icon;
-
-    private var notify2Icon;
-
-    private var notify3IconPlus;
-
-    private var printBattIcon;
-
-    private var printBluetoothIcon;
-
-    private var printDoNotDisturbIcon;
-
-    private var printNightModeIcon;
-
-    private var printNotifyIcon;
-
-    private var pos;
-
-    private var iconsCount;
-
-    public function initIp() {
-        if (0x000000 == Application.getApp().getProperty("BackgroundColor")) {
-            battIcon10 = WatchUi.loadResource(Rez.Drawables.BattIcon10W);
-            battIcon20 = WatchUi.loadResource(Rez.Drawables.BattIcon20W);
-            battIcon50 = WatchUi.loadResource(Rez.Drawables.BattIcon50W);
-            bluetoothIcon = WatchUi.loadResource(Rez.Drawables.BluetoothIconW);
-            doNotDisturbIcon = WatchUi.loadResource(Rez.Drawables.DoNotDisturbIconW);
-            nightModeIcon = WatchUi.loadResource(Rez.Drawables.NightModeIconW);
-            notify1Icon = WatchUi.loadResource(Rez.Drawables.Notify1IconW);
-            notify2Icon = WatchUi.loadResource(Rez.Drawables.Notify2IconW);
-            notify3IconPlus = WatchUi.loadResource(Rez.Drawables.Notify3PlusIconW);
-        } else {
-            battIcon10 = WatchUi.loadResource(Rez.Drawables.BattIcon10B);
-            battIcon20 = WatchUi.loadResource(Rez.Drawables.BattIcon20B);
-            battIcon50 = WatchUi.loadResource(Rez.Drawables.BattIcon50B);
-            bluetoothIcon = WatchUi.loadResource(Rez.Drawables.BluetoothIconB);
-            doNotDisturbIcon = WatchUi.loadResource(Rez.Drawables.DoNotDisturbIconB);
-            nightModeIcon = WatchUi.loadResource(Rez.Drawables.NightModeIconB);
-            notify1Icon = WatchUi.loadResource(Rez.Drawables.Notify1IconB);
-            notify2Icon = WatchUi.loadResource(Rez.Drawables.Notify2IconB);
-            notify3IconPlus = WatchUi.loadResource(Rez.Drawables.Notify3PlusIconB);
-        }
-        printBattIcon = false;
-        printBluetoothIcon = false;
-        printDoNotDisturbIcon = false;
-        printNightModeIcon = false;
-        printNotifyIcon = false;
+    public function init(cw, lh) {
+        containerWidth = cw;
+        bPosition = new BattIconPosition(38, null, cw, lh);
+        btPosition = new BtIconPosition(14, bPosition, cw, lh);
+        dndPosition = new DndIconPosition(24, btPosition, cw, lh);
+        nPosition = new NotifyIconPosition(26, dndPosition, cw, lh);
+        var sp = [ 0, 29 ];
+        bPosition.arrange(sp);
+        btPosition.arrange(sp);
+        dndPosition.arrange(sp);
+        nPosition.arrange(sp);
     }
 
-    public function printIcons(l) {
-        iconsCount = 0;
-        if (51 > System.getSystemStats().battery) {
-            printBattIcon = true;
-            ++iconsCount;
-        }
-        if (System.getDeviceSettings().phoneConnected) {
-            printBluetoothIcon = true;
-            ++iconsCount;
-        }
-        if (System.getDeviceSettings().doNotDisturb) {
-            printDoNotDisturbIcon = true;
-            ++iconsCount;
-        }
-        if (0 < System.getDeviceSettings().notificationCount) {
-            printNotifyIcon = true;
-            ++iconsCount;
-        }
-        var current = System.getClockTime().hour * 3600 + System.getClockTime().min * 60 + System.getClockTime().sec;
-        if (Toybox.UserProfile.getProfile().sleepTime.value() < current || current < Toybox.UserProfile.getProfile().wakeTime.value()) {
-            printNightModeIcon = true;
-            ++iconsCount;
-        }
+    public function print(l) {
         if (l.success()) {
-            fillPositions(l);
             var c = l.context();
-            putBattIcon(c);
-            putBluetoothIcon(c);
-            putDoNotDisturbIcon(c);
-            putNightModeIcon(c);
-            putNotifyIcon(c);
+            printB(c);
+            printBt(c);
+            printDnd(c);
+            printN(c);
         }
     }
 
-    private function fillPositions(l) {
-        var totalWidth = 32 * iconsCount;
-        var posX = l.center()[0];
-        var posY = l.center()[1];
-        pos = [
-            [ 0, 0, false ],
-            [ 0, 0, false ],
-            [ 0, 0, false ],
-            [ 0, 0, false ],
-            [ 0, 0, false ]
-        ];
-        if (4 < iconsCount) {
-            pos[4][0] = posX - (totalWidth / 2) + (32 * 4);
-            pos[4][1] = (posY * 2.0) / 5;
-        }
-        if (3 < iconsCount) {
-            pos[3][0] = posX - (totalWidth / 2) + (32 * 3);
-            pos[3][1] = (posY * 2.0) / 5;
-        }
-        if (2 < iconsCount) {
-            pos[2][0] = posX - (totalWidth / 2) + (32 * 2);
-            pos[2][1] = (posY * 2.0) / 5;
-        }
-        if (1 < iconsCount) {
-            pos[1][0] = posX - (totalWidth / 2) + 32;
-            pos[1][1] = (posY * 2.0) / 5;
-        }
-        pos[0][0] = posX - (totalWidth / 2);
-        pos[0][1] = (posY * 2.0) / 5;
-    }
-
-    private function putBattIcon(c) {
-        if (printBattIcon) {
-            if (51 > System.getSystemStats().battery) {
-                var p = mostLeftPos();
-                p[2] = true;
-                if (11 > System.getSystemStats().battery) {
-                    c.drawBitmap(p[0], p[1], battIcon10);
-                } else if (21 > System.getSystemStats().battery) {
-                    c.drawBitmap(p[0], p[1], battIcon20);
-                } else if (51 > System.getSystemStats().battery) {
-                    c.drawBitmap(p[0], p[1], battIcon50);
+    private function printB(c) {
+        if (bPosition.onStandby()) {
+            var iconImage = null;
+            var b = System.getSystemStats().battery;
+            if (0 <= b && b <= 10) {
+                if (0x000000 == Application.getApp().getProperty("BackgroundColor")) {
+                    iconImage = WatchUi.loadResource(Rez.Drawables.B10W);
+                } else {
+                    iconImage = WatchUi.loadResource(Rez.Drawables.B10B);
+                }
+            } else if (b <= 20) {
+                if (0x000000 == Application.getApp().getProperty("BackgroundColor")) {
+                    iconImage = WatchUi.loadResource(Rez.Drawables.B20W);
+                } else {
+                    iconImage = WatchUi.loadResource(Rez.Drawables.B20B);
+                }
+            } else if (b <= 30) {
+                if (0x000000 == Application.getApp().getProperty("BackgroundColor")) {
+                    iconImage = WatchUi.loadResource(Rez.Drawables.B30W);
+                } else {
+                    iconImage = WatchUi.loadResource(Rez.Drawables.B30B);
+                }
+            } else if (b <= 40) {
+                if (0x000000 == Application.getApp().getProperty("BackgroundColor")) {
+                    iconImage = WatchUi.loadResource(Rez.Drawables.B40W);
+                } else {
+                    iconImage = WatchUi.loadResource(Rez.Drawables.B40B);
+                }
+            } else {
+                if (0x000000 == Application.getApp().getProperty("BackgroundColor")) {
+                    iconImage = WatchUi.loadResource(Rez.Drawables.B50W);
+                } else {
+                    iconImage = WatchUi.loadResource(Rez.Drawables.B50B);
                 }
             }
+            c.drawBitmap(
+                bPosition.left() + leftOffset(totalWidth(bPosition.linePosition())),
+                bPosition.top(),
+                iconImage
+            );
+            iconImage = null;
         }
     }
 
-    private function putBluetoothIcon(c) {
-        if (printBluetoothIcon) {
-            var p = mostLeftPos();
-            c.drawBitmap(p[0], p[1], bluetoothIcon);
-            p[2] = true;
+    private function printBt(c) {
+        if (btPosition.onStandby()) {
+            var iconImage = null;
+            if (0x000000 == Application.getApp().getProperty("BackgroundColor")) {
+                iconImage = WatchUi.loadResource(Rez.Drawables.BtW);
+            } else {
+                iconImage = WatchUi.loadResource(Rez.Drawables.BtB);
+            }
+            c.drawBitmap(
+                btPosition.left() + leftOffset(totalWidth(btPosition.linePosition())),
+                btPosition.top(),
+                iconImage
+            );
+            iconImage = null;
         }
     }
 
-    private function putDoNotDisturbIcon(c) {
-        if (printDoNotDisturbIcon) {
-            var p = mostLeftPos();
-            c.drawBitmap(p[0], p[1], doNotDisturbIcon);
-            p[2] = true;
+    private function printDnd(c) {
+        if (dndPosition.onStandby()) {
+            var iconImage = null;
+            if (0x000000 == Application.getApp().getProperty("BackgroundColor")) {
+                iconImage = WatchUi.loadResource(Rez.Drawables.DNDW);
+            } else {
+                iconImage = WatchUi.loadResource(Rez.Drawables.DNDB);
+            }
+            c.drawBitmap(
+                dndPosition.left() + leftOffset(totalWidth(dndPosition.linePosition())),
+                dndPosition.top(),
+                iconImage
+            );
+            iconImage = null;
         }
     }
 
-    private function putNightModeIcon(c) {
-        if (printNightModeIcon) {
-            var p = mostLeftPos();
-            c.drawBitmap(p[0], p[1], nightModeIcon);
-            p[2] = true;
-        }
-    }
-
-    private function putNotifyIcon(c) {
-        if (printNotifyIcon) {
-            if (0 < System.getDeviceSettings().notificationCount) {
-                var p = mostLeftPos();
-                p[2] = true;
-                if (2 < System.getDeviceSettings().notificationCount) {
-                    c.drawBitmap(p[0], p[1], notify3IconPlus);
-                } else if (1 < System.getDeviceSettings().notificationCount) {
-                    c.drawBitmap(p[0], p[1], notify2Icon);
-                } else if (0 < System.getDeviceSettings().notificationCount) {
-                    c.drawBitmap(p[0], p[1], notify1Icon);
+    private function printN(c) {
+        if (nPosition.onStandby()) {
+            var iconImage = null;
+            var n = System.getDeviceSettings().notificationCount;
+            if (1 <= n < 2) {
+                if (0x000000 == Application.getApp().getProperty("BackgroundColor")) {
+                    iconImage = WatchUi.loadResource(Rez.Drawables.N1W);
+                } else {
+                    iconImage = WatchUi.loadResource(Rez.Drawables.N1B);
+                }
+            } else if (n < 3) {
+                if (0x000000 == Application.getApp().getProperty("BackgroundColor")) {
+                    iconImage = WatchUi.loadResource(Rez.Drawables.N2W);
+                } else {
+                    iconImage = WatchUi.loadResource(Rez.Drawables.N2B);
+                }
+            } else {
+                if (0x000000 == Application.getApp().getProperty("BackgroundColor")) {
+                    iconImage = WatchUi.loadResource(Rez.Drawables.N3W);
+                } else {
+                    iconImage = WatchUi.loadResource(Rez.Drawables.N3B);
                 }
             }
+            c.drawBitmap(
+                nPosition.left() + leftOffset(totalWidth(nPosition.linePosition())),
+                nPosition.top(),
+                iconImage
+            );
+            iconImage = null;
         }
     }
 
-    private function mostLeftPos() {
-        for (var i = 0; i < 4; ++i) {
-            if (!pos[i][2]) {
-                return pos[i];
+    private function totalWidth(lp) {
+        var ret = 0;
+        if (lp == bPosition.linePosition()) {
+            ret += bPosition.width();
+        }
+        if (lp == btPosition.linePosition()) {
+            ret += btPosition.width();
+        }
+        if (lp == dndPosition.linePosition()) {
+            ret += dndPosition.width();
+        }
+        if (lp == nPosition.linePosition()) {
+            ret += nPosition.width();
+        }
+        return ret;
+    }
+
+    private function leftOffset(tw) {
+        return containerWidth / 2 - tw / 2;
+    }
+
+    class IconPosition {
+
+        private var w;
+
+        private var p;
+
+        private var containerWidth;
+
+        private var lineHeight;
+
+        private var l;
+
+        private var t;
+
+        private var line;
+
+        public function initialize(arg1width, arg2prev, arg3cw, arg4lh) {
+            w = arg1width;
+            p = arg2prev;
+            containerWidth = arg3cw;
+            lineHeight = arg4lh;
+            l = 0;
+            t = 0;
+            line = 0;
+        }
+
+        public function width() {
+            return w;
+        }
+
+        public function left() {
+            return l;
+        }
+
+        public function top() {
+            return t;
+        }
+
+        public function linePosition() {
+            return line;
+        }
+
+        public function onStandby() {
+            if (0 < w) {
+                return true;
+            } else {
+                return false;
             }
         }
-        return null;
+
+        public function arrange(startPosition, standby) {
+            if (null == p) {
+                l = startPosition[0];
+                t = startPosition[1];
+            } else {
+                l = p.left() + p.width();
+                t = p.top();
+                line = p.linePosition();
+                if (containerWidth < l) {
+                    t -= (1 + lineHeight);
+                    l = 0;
+                    line -= 1;
+                }
+            }
+            if (standby) {
+                w += 6;
+            } else {
+                w = 0;
+            }
+        }
+
+    }
+
+    class BattIconPosition extends IconPosition {
+
+        public function initialize(arg1width, arg2prev, arg3cw, arg4lh) {
+            IconPosition.initialize(arg1width, arg2prev, arg3cw, arg4lh);
+        }
+
+        public function arrange(startPosition) {
+            if (50 >= System.getSystemStats().battery) {
+                IconPosition.arrange(startPosition, true);
+            } else {
+                IconPosition.arrange(startPosition, false);
+            }
+        }
+
+    }
+
+    class BtIconPosition extends IconPosition {
+
+        public function initialize(arg1width, arg2prev, arg3cw, arg4lh) {
+            IconPosition.initialize(arg1width, arg2prev, arg3cw, arg4lh);
+        }
+
+        public function arrange(startPosition) {
+            if (System.getDeviceSettings().phoneConnected) {
+                IconPosition.arrange(startPosition, true);
+            } else {
+                IconPosition.arrange(startPosition, false);
+            }
+        }
+
+    }
+
+    class DndIconPosition extends IconPosition {
+
+        public function initialize(arg1width, arg2prev, arg3cw, arg4lh) {
+            IconPosition.initialize(arg1width, arg2prev, arg3cw, arg4lh);
+        }
+
+        public function arrange(startPosition) {
+            if (System.getDeviceSettings().doNotDisturb) {
+                IconPosition.arrange(startPosition, true);
+            } else {
+                IconPosition.arrange(startPosition, false);
+            }
+        }
+
+    }
+
+    class NotifyIconPosition extends IconPosition {
+
+        public function initialize(arg1width, arg2prev, arg3cw, arg4lh) {
+            IconPosition.initialize(arg1width, arg2prev, arg3cw, arg4lh);
+        }
+
+        public function arrange(startPosition) {
+            if (1 <= System.getDeviceSettings().notificationCount) {
+                IconPosition.arrange(startPosition, true);
+            } else {
+                IconPosition.arrange(startPosition, false);
+            }
+        }
+
     }
 
 }
