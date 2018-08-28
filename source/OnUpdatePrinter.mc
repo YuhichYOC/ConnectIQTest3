@@ -51,7 +51,7 @@ class OnUpdatePrinter {
         dateLayer.tryAllocWithSize(argDc, dSize);
         dap = new DatePrinter();
         dPos = [ 0, argDc.getHeight() * 3 / 5 ];
-        iSize = [ argDc.getWidth() * 5 / 6, 28 * 2 + 1 ];
+        iSize = [ argDc.getWidth() * 5 / 6, 20 * 2 + 1 ];
         iconLayer = new BBLayer();
         iconLayer.tryAllocWithSize(argDc, iSize);
         ip = new IconPrinter();
@@ -79,7 +79,7 @@ class OnUpdatePrinter {
         if (iconLayer.success()) {
             var iconLayerC = iconLayer.context();
             iconLayerC.drawBitmap(-(iPos[0]), -(iPos[1]), dialLayer.buffer());
-            ip.init(iSize[0], 28);
+            ip.init(iSize[0], 20);
             ip.print(iconLayer);
             dc.drawBitmap(iPos[0], iPos[1], iconLayer.buffer());
         }

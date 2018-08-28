@@ -10,10 +10,10 @@ class DatePrinter {
     public function print(l) {
         setColorsToPrint();
         if (l.success()) {
-            //var d = Gregorian.info(Time.now(), Time.FORMAT_SHORT);
-            //var s = Lang.format("$1$ $2$ $3$", [ dowToString(d.day_of_week), monthToString(d.month), d.day ]);
-            var d = Gregorian.info(Time.now(), Time.FORMAT_LONG);
-            var s = Lang.format("$1$ $2$ $3$", [ d.day_of_week, d.month, d.day ]);
+            var d = Gregorian.info(Time.now(), Time.FORMAT_SHORT);
+            var s = dowToString(d.day_of_week) + "   " + monthToString(d.month) + "   " + Lang.format("$1$", [ d.day ]);
+            //var d = Gregorian.info(Time.now(), Time.FORMAT_LONG);
+            //var s = Lang.format("$1$ $2$ $3$", [ d.day_of_week, d.month, d.day ]);
             var c = l.context();
             c.setColor(fColor, bColor);
             c.drawText(l.center()[0], 0, Graphics.FONT_SMALL, s, Graphics.TEXT_JUSTIFY_CENTER);
@@ -31,17 +31,17 @@ class DatePrinter {
     }
 
     private function dowToString(arg) {
-        if (Time.Gregorian.DAY_SUNDAY == arg) {
+        if (1 == arg) {
             return "Sun";
-        } else if (Time.Gregorian.DAY_MONDAY == arg) {
+        } else if (2 == arg) {
             return "Mon";
-        } else if (Time.Gregorian.DAY_TUESDAY == arg) {
+        } else if (3 == arg) {
             return "Tue";
-        } else if (Time.Gregorian.DAY_WEDNESDAY == arg) {
+        } else if (4 == arg) {
             return "Wed";
-        } else if (Time.Gregorian.DAY_THURSDAY == arg) {
+        } else if (5 == arg) {
             return "Thu";
-        } else if (Time.Gregorian.DAY_FRIDAY == arg) {
+        } else if (6 == arg) {
             return "Fri";
         } else {
             return "Sat";

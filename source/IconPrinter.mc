@@ -4,6 +4,8 @@ class IconPrinter {
 
     private var containerWidth;
 
+    private var aPosition;
+
     private var bPosition;
 
     private var btPosition;
@@ -14,11 +16,13 @@ class IconPrinter {
 
     public function init(cw, lh) {
         containerWidth = cw;
-        bPosition = new BattIconPosition(38, null, cw, lh);
-        btPosition = new BtIconPosition(14, bPosition, cw, lh);
-        dndPosition = new DndIconPosition(24, btPosition, cw, lh);
-        nPosition = new NotifyIconPosition(26, dndPosition, cw, lh);
-        var sp = [ 0, 29 ];
+        aPosition = new AlarmIconPosition(22, null, cw, lh);
+        bPosition = new BattIconPosition(43, aPosition, cw, lh);
+        btPosition = new BtIconPosition(18, bPosition, cw, lh);
+        dndPosition = new DndIconPosition(22, btPosition, cw, lh);
+        nPosition = new NotifyIconPosition(24, dndPosition, cw, lh);
+        var sp = [ 0, 21 ];
+        aPosition.arrange(sp);
         bPosition.arrange(sp);
         btPosition.arrange(sp);
         dndPosition.arrange(sp);
@@ -28,6 +32,7 @@ class IconPrinter {
     public function print(l) {
         if (l.success()) {
             var c = l.context();
+            printA(c);
             printB(c);
             printBt(c);
             printDnd(c);
@@ -35,39 +40,56 @@ class IconPrinter {
         }
     }
 
+    private function printA(c) {
+        if (aPosition.onStandby()) {
+            var iconImage = null;
+            if (0x000000 == Application.getApp().getProperty("BackgroundColor")) {
+                iconImage = WatchUi.loadResource(Rez.Drawables.AW);
+            } else {
+                iconImage = WatchUi.loadResource(Rez.Drawables.AB);
+            }
+            c.drawBitmap(
+                aPosition.left() + leftOffset(totalWidth(aPosition.linePosition())),
+                aPosition.top(),
+                iconImage
+            );
+            iconImage = null;
+        }
+    }
+
     private function printB(c) {
         if (bPosition.onStandby()) {
             var iconImage = null;
             var b = System.getSystemStats().battery;
-            if (0 <= b && b <= 10) {
+            if (50 >= b) {
                 if (0x000000 == Application.getApp().getProperty("BackgroundColor")) {
-                    iconImage = WatchUi.loadResource(Rez.Drawables.B10W);
+                    iconImage = WatchUi.loadResource(Rez.Drawables.B50W);
                 } else {
-                    iconImage = WatchUi.loadResource(Rez.Drawables.B10B);
+                    iconImage = WatchUi.loadResource(Rez.Drawables.B50B);
                 }
-            } else if (b <= 20) {
-                if (0x000000 == Application.getApp().getProperty("BackgroundColor")) {
-                    iconImage = WatchUi.loadResource(Rez.Drawables.B20W);
-                } else {
-                    iconImage = WatchUi.loadResource(Rez.Drawables.B20B);
-                }
-            } else if (b <= 30) {
-                if (0x000000 == Application.getApp().getProperty("BackgroundColor")) {
-                    iconImage = WatchUi.loadResource(Rez.Drawables.B30W);
-                } else {
-                    iconImage = WatchUi.loadResource(Rez.Drawables.B30B);
-                }
-            } else if (b <= 40) {
+            } else if (40 >= b) {
                 if (0x000000 == Application.getApp().getProperty("BackgroundColor")) {
                     iconImage = WatchUi.loadResource(Rez.Drawables.B40W);
                 } else {
                     iconImage = WatchUi.loadResource(Rez.Drawables.B40B);
                 }
+            } else if (30 >= b) {
+                if (0x000000 == Application.getApp().getProperty("BackgroundColor")) {
+                    iconImage = WatchUi.loadResource(Rez.Drawables.B30W);
+                } else {
+                    iconImage = WatchUi.loadResource(Rez.Drawables.B30B);
+                }
+            } else if (20 >= b) {
+                if (0x000000 == Application.getApp().getProperty("BackgroundColor")) {
+                    iconImage = WatchUi.loadResource(Rez.Drawables.B20W);
+                } else {
+                    iconImage = WatchUi.loadResource(Rez.Drawables.B20B);
+                }
             } else {
                 if (0x000000 == Application.getApp().getProperty("BackgroundColor")) {
-                    iconImage = WatchUi.loadResource(Rez.Drawables.B50W);
+                    iconImage = WatchUi.loadResource(Rez.Drawables.B10W);
                 } else {
-                    iconImage = WatchUi.loadResource(Rez.Drawables.B50B);
+                    iconImage = WatchUi.loadResource(Rez.Drawables.B10B);
                 }
             }
             c.drawBitmap(
@@ -117,13 +139,13 @@ class IconPrinter {
         if (nPosition.onStandby()) {
             var iconImage = null;
             var n = System.getDeviceSettings().notificationCount;
-            if (1 <= n < 2) {
+            if (3 <= n) {
                 if (0x000000 == Application.getApp().getProperty("BackgroundColor")) {
-                    iconImage = WatchUi.loadResource(Rez.Drawables.N1W);
+                    iconImage = WatchUi.loadResource(Rez.Drawables.N3W);
                 } else {
-                    iconImage = WatchUi.loadResource(Rez.Drawables.N1B);
+                    iconImage = WatchUi.loadResource(Rez.Drawables.N3B);
                 }
-            } else if (n < 3) {
+            } else if (2 <= n) {
                 if (0x000000 == Application.getApp().getProperty("BackgroundColor")) {
                     iconImage = WatchUi.loadResource(Rez.Drawables.N2W);
                 } else {
@@ -131,9 +153,9 @@ class IconPrinter {
                 }
             } else {
                 if (0x000000 == Application.getApp().getProperty("BackgroundColor")) {
-                    iconImage = WatchUi.loadResource(Rez.Drawables.N3W);
+                    iconImage = WatchUi.loadResource(Rez.Drawables.N1W);
                 } else {
-                    iconImage = WatchUi.loadResource(Rez.Drawables.N3B);
+                    iconImage = WatchUi.loadResource(Rez.Drawables.N1B);
                 }
             }
             c.drawBitmap(
@@ -147,6 +169,9 @@ class IconPrinter {
 
     private function totalWidth(lp) {
         var ret = 0;
+        if (lp == aPosition.linePosition()) {
+            ret += aPosition.width();
+        }
         if (lp == bPosition.linePosition()) {
             ret += bPosition.width();
         }
@@ -158,6 +183,9 @@ class IconPrinter {
         }
         if (lp == nPosition.linePosition()) {
             ret += nPosition.width();
+        }
+        if (0 < ret) {
+            ret -= 3;
         }
         return ret;
     }
@@ -231,9 +259,25 @@ class IconPrinter {
                 }
             }
             if (standby) {
-                w += 6;
+                w += 3;
             } else {
                 w = 0;
+            }
+        }
+
+    }
+
+    class AlarmIconPosition extends IconPosition {
+
+        public function initialize(arg1width, arg2prev, arg3cw, arg4lh) {
+            IconPosition.initialize(arg1width, arg2prev, arg3cw, arg4lh);
+        }
+
+        public function arrange(startPosition) {
+            if (0 < System.getDeviceSettings().alarmCount) {
+                IconPosition.arrange(startPosition, true);
+            } else {
+                IconPosition.arrange(startPosition, false);
             }
         }
 
