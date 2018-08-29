@@ -12,6 +12,16 @@
     <bitmap id="B40W" filename="Batt/W43x20/40.png" />
     <bitmap id="B50B" filename="Batt/B43x20/50.png" />
     <bitmap id="B50W" filename="Batt/W43x20/50.png" />
+    <bitmap id="B60B" filename="Batt/B43x20/60.png" />
+    <bitmap id="B60W" filename="Batt/W43x20/60.png" />
+    <bitmap id="B70B" filename="Batt/B43x20/70.png" />
+    <bitmap id="B70W" filename="Batt/W43x20/70.png" />
+    <bitmap id="B80B" filename="Batt/B43x20/80.png" />
+    <bitmap id="B80W" filename="Batt/W43x20/80.png" />
+    <bitmap id="B90B" filename="Batt/B43x20/90.png" />
+    <bitmap id="B90W" filename="Batt/W43x20/90.png" />
+    <bitmap id="B100B" filename="Batt/B43x20/100.png" />
+    <bitmap id="B100W" filename="Batt/W43x20/100.png" />
     <bitmap id="BtB" filename="Bluetooth/B18x20/BluetoothIcon.png" />
     <bitmap id="BtW" filename="Bluetooth/W18x20/BluetoothIcon.png" />
     <bitmap id="DNDB" filename="Dnd/B22x20/DoNotDisturbIcon.png" />

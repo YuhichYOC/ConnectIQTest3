@@ -18,4 +18,8 @@
         </settingConfig>
     </setting>
 
+    <setting propertyKey="@Properties.AlwaysShowBatteryIcon" title="@Strings.AlwaysShowBatteryIconTitle">
+        <settingConfig type="boolean"/>
+    </setting>
+
 </settings>
