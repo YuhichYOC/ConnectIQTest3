@@ -26,10 +26,44 @@
     <bitmap id="BtW" filename="Bluetooth/W18x20/BluetoothIcon.png" />
     <bitmap id="DNDB" filename="Dnd/B22x20/DoNotDisturbIcon.png" />
     <bitmap id="DNDW" filename="Dnd/W22x20/DoNotDisturbIcon.png" />
+    <bitmap id="F00B" filename="Floors/B44x20/0.png" />
+    <bitmap id="F00W" filename="Floors/W44x20/0.png" />
+    <bitmap id="F20B" filename="Floors/B44x20/20.png" />
+    <bitmap id="F20W" filename="Floors/W44x20/20.png" />
+    <bitmap id="F40B" filename="Floors/B44x20/40.png" />
+    <bitmap id="F40W" filename="Floors/W44x20/40.png" />
+    <bitmap id="F60B" filename="Floors/B44x20/60.png" />
+    <bitmap id="F60W" filename="Floors/W44x20/60.png" />
+    <bitmap id="F80B" filename="Floors/B44x20/80.png" />
+    <bitmap id="F80W" filename="Floors/W44x20/80.png" />
+    <bitmap id="F100B" filename="Floors/B44x20/100.png" />
+    <bitmap id="F100W" filename="Floors/W44x20/100.png" />
+    <bitmap id="M1B" filename="Move/B26x20/1.png" />
+    <bitmap id="M1W" filename="Move/W26x20/1.png" />
+    <bitmap id="M2B" filename="Move/B26x20/2.png" />
+    <bitmap id="M2W" filename="Move/W26x20/2.png" />
+    <bitmap id="M3B" filename="Move/B26x20/3.png" />
+    <bitmap id="M3W" filename="Move/W26x20/3.png" />
+    <bitmap id="M4B" filename="Move/B26x20/4.png" />
+    <bitmap id="M4W" filename="Move/W26x20/4.png" />
+    <bitmap id="M5B" filename="Move/B26x20/5.png" />
+    <bitmap id="M5W" filename="Move/W26x20/5.png" />
     <bitmap id="N1B" filename="Notify/B24x20/1.png" />
     <bitmap id="N1W" filename="Notify/W24x20/1.png" />
     <bitmap id="N2B" filename="Notify/B24x20/2.png" />
     <bitmap id="N2W" filename="Notify/W24x20/2.png" />
     <bitmap id="N3B" filename="Notify/B24x20/3.png" />
     <bitmap id="N3W" filename="Notify/W24x20/3.png" />
+    <bitmap id="S00B" filename="Steps/B44x20/0.png" />
+    <bitmap id="S00W" filename="Steps/W44x20/0.png" />
+    <bitmap id="S20B" filename="Steps/B44x20/20.png" />
+    <bitmap id="S20W" filename="Steps/W44x20/20.png" />
+    <bitmap id="S40B" filename="Steps/B44x20/40.png" />
+    <bitmap id="S40W" filename="Steps/W44x20/40.png" />
+    <bitmap id="S60B" filename="Steps/B44x20/60.png" />
+    <bitmap id="S60W" filename="Steps/W44x20/60.png" />
+    <bitmap id="S80B" filename="Steps/B44x20/80.png" />
+    <bitmap id="S80W" filename="Steps/W44x20/80.png" />
+    <bitmap id="S100B" filename="Steps/B44x20/100.png" />
+    <bitmap id="S100W" filename="Steps/W44x20/100.png" />
 </drawables>
