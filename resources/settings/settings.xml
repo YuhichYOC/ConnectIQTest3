@@ -22,4 +22,12 @@
         <settingConfig type="boolean"/>
     </setting>
 
+    <setting propertyKey="@Properties.MinutesShowSecondHand" title="@Strings.MinutesShowSecondHandTitle">
+        <settingConfig type="numeric"/>
+    </setting>
+
+    <setting propertyKey="@Properties.ShowIconPaletteRectangle" title="@Strings.ShowIconPaletteRectangleTitle">
+        <settingConfig type="boolean"/>
+    </setting>
+
 </settings>

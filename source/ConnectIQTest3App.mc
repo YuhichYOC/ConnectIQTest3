@@ -17,6 +17,7 @@ class ConnectIQTest3App extends App.AppBase {
     // Return the initial view of your application here
     function getInitialView() {
         if (Toybox.WatchUi has :WatchFaceDelegate) {
+            //return [ new ConnectIQTest3View(), new TapDelegate(), new ConnectIQTest3Delegate() ];
             return [ new ConnectIQTest3View(), new ConnectIQTest3Delegate() ];
         } else {
             return [ new ConnectIQTest3View() ];

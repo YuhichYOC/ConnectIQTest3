@@ -3,6 +3,8 @@ using Toybox.WatchUi;
 
 var partialUpdatesAllowed = false;
 
+var minutesDuringRunPartial = 0;
+
 class ConnectIQTest3View extends WatchUi.WatchFace {
 
     private var oup;
@@ -10,6 +12,7 @@ class ConnectIQTest3View extends WatchUi.WatchFace {
     function initialize() {
         WatchFace.initialize();
         partialUpdatesAllowed = (Toybox.WatchUi.WatchFace has :onPartialUpdate);
+        minutesDuringRunPartial = 0;
     }
 
     function onLayout(dc) {
@@ -21,7 +24,15 @@ class ConnectIQTest3View extends WatchUi.WatchFace {
     }
 
     function onUpdate(dc) {
-        oup.AllowPartial(partialUpdatesAllowed);
+        if (!partialUpdatesAllowed) {
+            oup.AllowPartial(false);
+        } else if (0 > Application.getApp().getProperty("MinutesShowSecondHand")) {
+            // NOP
+        } else if (Application.getApp().getProperty("MinutesShowSecondHand") < minutesDuringRunPartial) {
+            oup.AllowPartial(false);
+        } else {
+            ++minutesDuringRunPartial;
+        }
         oup.run(dc);
     }
 
@@ -41,7 +52,24 @@ class ConnectIQTest3View extends WatchUi.WatchFace {
         oup.Awaken(false);
     }
 
+    function onTap(e) {
+        minutesDuringRunPartial = 0;
+    }
+
 }
+
+/*
+class TapDelegate extends WatchUi.InputDelegate {
+
+    function initialize() {
+    }
+
+    function onTap(e) {
+        minutesDuringRunPartial = 0;
+    }
+
+}
+*/
 
 class ConnectIQTest3Delegate extends WatchUi.WatchFaceDelegate {
 
